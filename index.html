@@ -3,458 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phân Tích Sâu Tinh Dầu Thông Đỏ: Thần Dược hay Tin Đồn?</title>
+    <title>Trang Tổng Hợp Bài Viết</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Calm Harmony -->
-    <!-- Application Structure Plan: Cấu trúc ứng dụng được giữ nguyên theo hướng tường thuật theo chủ đề, nhưng nội dung mỗi phần được đào sâu đáng kể. Người dùng vẫn bắt đầu với câu hỏi trung tâm, nhưng giờ đây mỗi lựa chọn tương tác sẽ mở ra một lượng thông tin chi tiết hơn rất nhiều, bao gồm các số liệu cụ thể, cơ chế hoạt động, và các hạn chế của nghiên cứu. Cấu trúc này giúp quản lý lượng thông tin lớn mà không gây choáng ngợp, cho phép người dùng tự định hướng và khám phá sâu hơn vào các lĩnh vực họ quan tâm, biến trang web thành một công cụ nghiên cứu thực sự thay vì chỉ là một bản tóm tắt. -->
-    <!-- Visualization & Content Choices: 1. Đối chiếu Quảng cáo & Sự thật: Report Info (Các công dụng quảng cáo và dữ liệu nghiên cứu chi tiết) -> Goal (Phân tích sâu) -> Viz (Giao diện 4 tab cố định trên một hàng, text bên trong tự xuống dòng) -> Interaction (Nhấp chuột để chuyển tab) -> Justification (Tạo bố cục ổn định, chuyên nghiệp trên mọi thiết bị, đáp ứng chính xác yêu cầu người dùng) -> Method (Vanilla JS). 2. Phân tích thành phần: Report Info (Thành phần hóa học và vai trò) -> Goal (Giáo dục) -> Viz (Biểu đồ Donut kết hợp với bảng phân tích chi tiết) -> Interaction (Di chuột trên biểu đồ và đọc bảng) -> Justification (Kết hợp hình ảnh trực quan với giải thích văn bản chi tiết để tăng cường sự hiểu biết) -> Library/Method (Chart.js & HTML). 3. Thang đo bằng chứng: Report Info (Các loại hình nghiên cứu khoa học) -> Goal (Đánh giá) -> Viz (Thang đo trực quan với chú giải chi tiết hơn) -> Interaction (Di chuột để xem định nghĩa của từng cấp độ bằng chứng) -> Justification (Giúp người dùng hiểu rõ hơn về giá trị và hạn chế của từng loại nghiên cứu) -> Method (HTML/CSS). -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            background-color: #F8F7F4;
-            color: #3D405B;
-        }
-        .bg-primary { background-color: #F8F7F4; }
-        .bg-secondary { background-color: #FFFFFF; }
-        .bg-accent { background-color: #A4B494; }
-        .text-primary { color: #3D405B; }
-        .text-secondary { color: #5E6282; }
-        .text-accent { color: #8F5B34; }
-        .prose h4 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #3D405B;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        .prose ul {
-            list-style-position: inside;
-            padding-left: 0;
-        }
-        .prose li::marker {
-            color: #A4B494;
-        }
-        .btn-claim {
-            transition: color 0.3s ease, border-color 0.3s ease;
-            border-bottom-width: 3px;
-            border-color: transparent;
-            color: #5E6282; /* text-secondary */
-            word-break: break-word; /* Ensure text wraps */
-            hyphens: auto;
-        }
-        .btn-claim:hover {
-            color: #3D405B; /* text-primary */
-        }
-        .btn-claim.active {
-            border-color: #A4B494; /* accent color */
-            color: #3D405B; /* primary text color */
-            font-weight: 600;
-        }
-        .evidence-content {
-            display: none;
-        }
-        .evidence-content.active {
-            display: block;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 350px;
-            margin-left: auto;
-            margin-right: auto;
-            height: auto;
-            max-height: 350px;
-        }
-        .evidence-scale {
-            display: flex;
-            height: 20px;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: #e0e0e0;
-        }
-        .scale-segment {
-            height: 100%;
-            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
-<body class="bg-primary">
+<body class="bg-gray-50 text-gray-800">
 
-    <div class="container mx-auto p-4 md:p-8">
-        
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-primary mb-2">Phân Tích Sâu Tinh Dầu Thông Đỏ</h1>
-            <p class="text-xl md:text-2xl text-accent font-light">Thần Dược Hay Chỉ Là Tin Đồn?</p>
-            <p class="max-w-3xl mx-auto text-secondary mt-4">Phiên bản phân tích chuyên sâu này đi vào chi tiết các nghiên cứu, cơ chế hoạt động và những tranh luận khoa học, nhằm cung cấp một cái nhìn gần nhất với các báo cáo gốc.</p>
+    <div class="container mx-auto max-w-2xl px-4 py-8 md:py-16">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Danh sách các bài viết</h1>
+            <p class="mt-2 text-gray-600">Chọn một bài viết để đọc chi tiết.</p>
         </header>
 
+        <!-- Main content - List of articles -->
         <main>
-            <section id="claims-vs-reality" class="mb-16">
-                <div class="bg-secondary rounded-xl shadow-lg p-6 md:p-8">
-                    <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2 text-center">Đối Chiếu Quảng Cáo & Phân Tích Khoa Học</h2>
-                    <p class="text-center text-secondary mb-8">Chọn một công dụng được quảng cáo để xem phân tích chi tiết về cơ sở khoa học, các nghiên cứu liên quan và những hạn chế của chúng.</p>
-                    
-                    <div>
-                        <div id="claims-list" class="grid grid-cols-4 -mb-px border-b border-gray-200">
-                        </div>
-                        <div id="evidence-display" class="w-full bg-gray-50 p-6 rounded-b-lg min-h-[400px] prose mt-[-1px] rounded-t-lg">
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <div class="space-y-4">
+                <a href="chanh-muoi.html" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-200 group">
+                    <h2 class="text-xl font-semibold text-blue-600 group-hover:text-blue-700">1. Sự Thật & Tin Đồn Về Nước Chanh Muối</h2>
+                    <p class="text-gray-600 mt-1">Phân tích chi tiết về công dụng, tác hại và những hiểu lầm phổ biến.</p>
+                </a>
 
-            <section id="ingredients" class="mb-16">
-                 <div class="text-center mb-8">
-                    <h2 class="text-2xl md:text-3xl font-bold text-primary">Phân Tích Sâu Về Thành Phần Hoạt Chất</h2>
-                    <p class="text-secondary max-w-2xl mx-auto mt-2">Hiệu quả của tinh dầu thông đỏ phụ thuộc vào sự tương tác phức tạp của các hợp chất. Dưới đây là phân tích chi tiết về các thành phần chính và vai trò của chúng.</p>
-                </div>
-                <div class="bg-secondary rounded-xl shadow-lg p-6 md:p-8">
-                    <div class="flex flex-col lg:flex-row gap-8 items-center">
-                        <div class="w-full lg:w-1/3">
-                            <div class="chart-container">
-                                <canvas id="ingredientsChart"></canvas>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-2/3">
-                            <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thành phần</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vai trò & Cơ chế được đề xuất</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Terpinolene</td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Chất chống oxy hóa chính. Có thể ức chế quá trình oxy hóa LDL-cholesterol (một bước quan trọng trong việc hình thành mảng xơ vữa). Nghiên cứu cho thấy có khả năng gây apoptosis (chết theo chương trình) cho tế bào ung thư trong ống nghiệm.</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">3-Carene</td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Có đặc tính chống viêm mạnh, có thể ức chế các cytokine gây viêm như TNF-alpha và IL-6. Thường được nghiên cứu trong bối cảnh giảm viêm khớp và các bệnh viêm nhiễm khác.</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Limonene</td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Hỗ trợ hoạt động của các enzyme giải độc trong gan. Có tác dụng kháng khuẩn và kháng nấm. Mùi hương đặc trưng cũng có thể có tác dụng làm dịu thần kinh.</td>
-                                        </tr>
-                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Hiệu ứng tổng hợp (Synergistic Effect)</td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Giả thuyết cho rằng hiệu quả tổng thể lớn hơn tổng tác dụng của từng thành phần riêng lẻ. Ví dụ, Limonene có thể tăng cường sự hấp thụ của Terpinolene. Tuy nhiên, điều này rất khó chứng minh lâm sàng.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="evidence-spectrum" class="mb-16">
-                <div class="text-center mb-8">
-                    <h2 class="text-2xl md:text-3xl font-bold text-primary">Phân Tích Phổ Bằng Chứng Khoa Học</h2>
-                    <p class="text-secondary max-w-3xl mx-auto mt-2">Để đánh giá một cách khách quan, chúng ta cần hiểu các cấp độ bằng chứng. Đây là phân tích về chất lượng và số lượng các nghiên cứu cho từng công dụng chính.</p>
-                </div>
-
-                <div class="bg-secondary rounded-xl shadow-lg p-6 md:p-8 space-y-6">
-                    <div class="evidence-item">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="font-semibold text-primary">Chống oxy hóa & Chống viêm</span>
-                            <span class="text-sm font-medium text-green-700">Có cơ sở</span>
-                        </div>
-                        <div class="evidence-scale" title="Nhiều nghiên cứu trong ống nghiệm (in-vitro) và trên động vật đã chứng minh rõ ràng các đặc tính này. Đây là cơ sở cho hầu hết các lợi ích tiềm năng khác.">
-                            <div class="scale-segment bg-green-200" style="width: 35%;"></div>
-                            <div class="scale-segment bg-green-400" style="width: 40%;"></div>
-                        </div>
-                    </div>
-                    <div class="evidence-item">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="font-semibold text-primary">Hỗ trợ tim mạch (giảm cholesterol)</span>
-                            <span class="text-sm font-medium text-yellow-700">Sơ bộ</span>
-                        </div>
-                        <div class="evidence-scale" title="Tồn tại một số thử nghiệm lâm sàng nhỏ trên người, nhưng kết quả không nhất quán. Cần các thử nghiệm ngẫu nhiên có đối chứng (RCT) lớn hơn.">
-                            <div class="scale-segment bg-yellow-200" style="width: 25%;"></div>
-                             <div class="scale-segment bg-yellow-400" style="width: 20%;"></div>
-                        </div>
-                    </div>
-                     <div class="evidence-item">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="font-semibold text-primary">Kiểm soát đường huyết</span>
-                             <span class="text-sm font-medium text-orange-700">Hạn chế</span>
-                        </div>
-                        <div class="evidence-scale" title="Bằng chứng chủ yếu dừng lại ở mức độ tế bào và một vài nghiên cứu trên động vật. Gần như không có dữ liệu lâm sàng đáng tin cậy trên người.">
-                            <div class="scale-segment bg-orange-300" style="width: 25%;"></div>
-                        </div>
-                    </div>
-                     <div class="evidence-item">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="font-semibold text-primary">"Làm tan mỡ", chống đột quỵ, ung thư</span>
-                             <span class="text-sm font-medium text-red-700">Suy diễn / Thiếu bằng chứng</span>
-                        </div>
-                        <div class="evidence-scale" title="Các tuyên bố này là sự suy diễn quá xa từ các nghiên cứu cơ bản (chống viêm, chống oxy hóa). Hoàn toàn không có bằng chứng lâm sàng trực tiếp.">
-                             <div class="scale-segment bg-red-300" style="width: 10%;"></div>
-                        </div>
-                    </div>
-                    <div class="flex justify-around mt-4 text-xs text-secondary text-center">
-                        <div class="w-1/4" title="Nghiên cứu trong phòng thí nghiệm (test tube, petri dish). Xác định cơ chế tiềm năng.">Phòng thí nghiệm<br/>(In-vitro)</div>
-                        <div class="w-1/4" title="Nghiên cứu trên cơ thể sống, thường là động vật (chuột, thỏ). Đánh giá hiệu quả và an toàn sơ bộ.">Động vật<br/>(In-vivo)</div>
-                        <div class="w-1/4" title="Thử nghiệm trên một nhóm nhỏ người. Thường không có nhóm đối chứng, dùng để đánh giá tính khả thi và liều lượng.">Người (hạn chế)<br/>(Small trials)</div>
-                        <div class="w-1/4" title="Tiêu chuẩn vàng: Thử nghiệm ngẫu nhiên, có nhóm đối chứng (placebo), mù đôi trên quy mô lớn. Cung cấp bằng chứng mạnh nhất.">Người (mạnh)<br/>(Large RCTs)</div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="user-reviews" class="mb-16">
-                 <div class="text-center mb-8">
-                    <h2 class="text-2xl md:text-3xl font-bold text-primary">Tổng Hợp Đánh Giá & Trải Nghiệm Thực Tế</h2>
-                    <p class="text-secondary max-w-2xl mx-auto mt-2">Ngoài dữ liệu lâm sàng, các báo cáo giai thoại và trải nghiệm từ người dùng cung cấp một góc nhìn khác, dù kém tin cậy hơn về mặt khoa học.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-secondary rounded-xl shadow-lg p-6">
-                        <h3 class="font-bold text-lg text-green-700 mb-3">Báo cáo Tích cực 👍</h3>
-                        <blockquote class="border-l-4 border-green-200 pl-4 text-secondary italic">"Sau 6 tháng sử dụng cùng với việc thay đổi chế độ ăn, chỉ số LDL của tôi giảm 15%. Bác sĩ rất ngạc nhiên. Tôi cảm thấy tràn đầy năng lượng hơn." <cite class="block not-italic mt-2 text-sm">- User trên diễn đàn Cholesterol</cite></blockquote>
-                    </div>
-                    <div class="bg-secondary rounded-xl shadow-lg p-6">
-                        <h3 class="font-bold text-lg text-red-700 mb-3">Báo cáo Tiêu cực 👎</h3>
-                         <blockquote class="border-l-4 border-red-200 pl-4 text-secondary italic">"Tôi đã chi một khoản tiền không nhỏ cho sản phẩm này trong 3 tháng và không thấy bất kỳ thay đổi nào. Tệ hơn là chứng ợ nóng và mùi thông khó chịu cứ ám ảnh tôi." <cite class="block not-italic mt-2 text-sm">- Review trên Amazon</cite></blockquote>
-                    </div>
-                    <div class="bg-secondary rounded-xl shadow-lg p-6">
-                        <h3 class="font-bold text-lg text-yellow-700 mb-3">Góc nhìn Trung lập & Hoài nghi 🤔</h3>
-                         <blockquote class="border-l-4 border-yellow-200 pl-4 text-secondary italic">"Rất khó để nói nó có hiệu quả thật hay không. Tôi bắt đầu uống nó cùng lúc với việc tập gym và ăn uống lành mạnh hơn. Có thể những thay đổi đó mới là nguyên nhân chính." <cite class="block not-italic mt-2 text-sm">- User trên Reddit</cite></blockquote>
-                    </div>
-                </div>
-            </section>
-
-            <section id="risks" class="mb-12">
-                <div class="bg-red-50 border-l-4 border-red-500 text-red-800 p-6 rounded-r-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-4">Phân Tích Rủi Ro & Những Vấn Đề Cần Cân Nhắc</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <strong class="font-semibold text-lg">Tương tác thuốc:</strong>
-                            <ul class="list-disc list-inside mt-1 text-sm">
-                                <li><strong>Thuốc chống đông máu (Warfarin, Clopidogrel):</strong> Tinh dầu thông có thể có tác dụng chống kết tập tiểu cầu nhẹ, làm tăng nguy cơ chảy máu khi dùng chung.</li>
-                                <li><strong>Thuốc tiểu đường:</strong> Nếu sản phẩm có tác dụng hạ đường huyết (dù yếu), việc dùng chung có thể làm tăng nguy cơ hạ đường huyết quá mức.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong class="font-semibold text-lg">Chất lượng và Tiêu chuẩn hóa:</strong>
-                            <p class="text-sm mt-1">Đây là vấn đề lớn nhất. Hàm lượng hoạt chất (terpenoid) có thể khác biệt rất lớn giữa các thương hiệu. Nhiều sản phẩm có thể bị pha loãng với các loại dầu khác rẻ tiền hơn. Hãy tìm kiếm các chứng nhận của bên thứ ba (ví dụ: GMP) nhưng hãy nhớ rằng chúng chỉ đảm bảo quy trình sản xuất, không đảm bảo hiệu quả.</p>
-                        </div>
-                         <div>
-                            <strong class="font-semibold text-lg">Đối tượng cần đặc biệt cẩn trọng:</strong>
-                             <p class="text-sm mt-1">Phụ nữ mang thai/cho con bú, người bị rối loạn đông máu, người sắp phẫu thuật, và người có bệnh gan hoặc thận nặng nên tránh sử dụng do thiếu dữ liệu an toàn.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="conclusion">
-                <div class="bg-secondary rounded-xl shadow-lg p-6 md:p-8">
-                    <h2 class="text-2xl md:text-3xl font-bold text-primary mb-4 text-center">Kết Luận Dựa Trên Phân Tích Chuyên Sâu</h2>
-                    <div class="text-secondary space-y-4 text-lg">
-                        <p>Sau khi phân tích sâu, có thể khẳng định tinh dầu thông đỏ không phải là "thần dược". Các bằng chứng khoa học mạnh mẽ nhất chỉ ủng hộ vai trò của nó như một <strong class="text-green-700">chất bổ sung chống oxy hóa và chống viêm</strong> có nguồn gốc tự nhiên.</p>
-                        <p>Các lợi ích tiềm năng đối với sức khỏe tim mạch (giảm cholesterol) <strong class="text-yellow-700">vẫn còn ở giai đoạn sơ bộ và cần nhiều nghiên cứu chất lượng cao hơn</strong> để xác nhận. Có một khoảng cách lớn giữa các kết quả hứa hẹn trong phòng thí nghiệm và hiệu quả đã được chứng minh trên lâm sàng ở người.</p>
-                        <p>Các tuyên bố về việc "làm tan mỡ", chữa ung thư, hay ngăn ngừa đột quỵ là <strong class="text-red-700">sự suy diễn vô căn cứ từ các cơ chế sinh hóa cơ bản</strong>, không phản ánh thực tế bằng chứng lâm sàng và mang tính chất quảng cáo gây hiểu lầm.</p>
-                        <p class="font-semibold text-primary text-center pt-4">Đánh giá cuối cùng: Tinh dầu thông đỏ có thể là một phần trong một chiến lược chăm sóc sức khỏe toàn diện, nhưng không bao giờ được coi là một phương pháp điều trị độc lập cho bất kỳ bệnh lý nào. Sự đầu tư về tài chính cần được cân nhắc kỹ lưỡng so với những lợi ích còn chưa chắc chắn của nó.</p>
-                    </div>
-                </div>
-            </section>
-
+                <a href="giai-doc-tinh-dau-thong-do.html" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-200 group">
+                    <h2 class="text-xl font-semibold text-green-600 group-hover:text-green-700">2. "Giải Độc" Tin Đồn Tinh Dầu Thông Đỏ</h2>
+                    <p class="text-gray-600 mt-1">Lật tẩy những quảng cáo sai sự thật về công dụng của tinh dầu thông đỏ.</p>
+                </a>
+            </div>
         </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-sm text-gray-500">
+            <p>&copy; 2024 - Bình CAO</p>
+        </footer>
+
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const claimsData = [
-                {
-                    id: 'claim1',
-                    title: 'Hỗ trợ Cholesterol',
-                    evidence: {
-                        rating: 'Sơ bộ',
-                        color: 'text-yellow-600',
-                        content: `
-                            <h4>Cơ chế hoạt động được đề xuất</h4>
-                            <p>Thành phần chính, Terpinolene, được cho là có khả năng ức chế enzyme HMG-CoA reductase ở một mức độ nào đó, tương tự cơ chế của thuốc statin nhưng yếu hơn rất nhiều. Ngoài ra, đặc tính chống oxy hóa giúp ngăn chặn quá trình oxy hóa LDL-cholesterol, một bước khởi đầu quan trọng trong việc hình thành mảng xơ vữa động mạch.</p>
-                            <h4>Bằng chứng khoa học</h4>
-                            <ul>
-                                <li>Một nghiên cứu ngẫu nhiên có đối chứng năm 2018 (N=87 người có cholesterol cao nhẹ) cho thấy nhóm sử dụng 150mg tinh dầu thông đỏ 3 lần/ngày trong 12 tuần có mức giảm LDL-C trung bình là 8.7% so với 2.1% ở nhóm giả dược (p < 0.05).</li>
-                                <li>Tuy nhiên, một nghiên cứu khác vào năm 2020 không tìm thấy sự khác biệt có ý nghĩa thống kê về chỉ số lipid máu.</li>
-                            </ul>
-                            <h4>Hạn chế & Tranh cãi</h4>
-                            <ul>
-                                <li>Quy mô nghiên cứu còn nhỏ và thời gian theo dõi ngắn.</li>
-                                <li>Kết quả không nhất quán giữa các nghiên cứu.</li>
-                                <li>Nhiều nghiên cứu được tài trợ bởi chính các nhà sản xuất, có thể gây ra thiên vị trong việc công bố kết quả.</li>
-                            </ul>
-                            <p class="mt-4"><strong>Kết luận:</strong> Có một số dấu hiệu tích cực ban đầu nhưng chưa đủ mạnh mẽ để đưa ra khuyến nghị y tế. Không thể thay thế thuốc statin hoặc các biện pháp điều trị khác.</p>
-                        `
-                    }
-                },
-                {
-                    id: 'claim2',
-                    title: 'Kiểm soát đường huyết',
-                    evidence: {
-                        rating: 'Hạn chế',
-                        color: 'text-orange-600',
-                        content: `
-                            <h4>Cơ chế hoạt động được đề xuất</h4>
-                            <p>Một số hợp chất trong lá thông (không phải dầu chiết xuất) trong ống nghiệm đã cho thấy khả năng ức chế enzyme alpha-glucosidase, làm chậm quá trình phân giải carbohydrate thành đường đơn, từ đó làm giảm tốc độ tăng đường huyết sau ăn.</p>
-                            <h4>Bằng chứng khoa học</h4>
-                            <ul>
-                                <li>Hầu hết bằng chứng đến từ các nghiên cứu in-vitro sử dụng chiết xuất lá thông, không phải tinh dầu thông đỏ thương mại.</li>
-                                <li>Một nghiên cứu trên chuột mắc bệnh tiểu đường cho thấy có sự cải thiện nhẹ về độ nhạy insulin sau 8 tuần, nhưng liều lượng sử dụng rất cao, không thể áp dụng cho người.</li>
-                                <li>Đến nay, chưa có thử nghiệm lâm sàng đáng tin cậy nào trên người được công bố.</li>
-                            </ul>
-                            <h4>Hạn chế & Tranh cãi</h4>
-                            <ul>
-                                <li>Sự khác biệt lớn giữa chiết xuất được nghiên cứu và sản phẩm bán trên thị trường.</li>
-                                <li>Thiếu hoàn toàn dữ liệu trên người.</li>
-                            </ul>
-                            <p class="mt-4"><strong>Kết luận:</strong> Tuyên bố này gần như không có cơ sở khoa học đối với sản phẩm tinh dầu thông đỏ dạng viên nang. Người bệnh tiểu đường không nên tin vào quảng cáo này.</p>
-                        `
-                    }
-                },
-                {
-                    id: 'claim3',
-                    title: 'Chống oxy hóa & viêm',
-                    evidence: {
-                        rating: 'Có cơ sở',
-                        color: 'text-green-700',
-                        content: `
-                            <h4>Cơ chế hoạt động được đề xuất</h4>
-                            <p>Các terpenoid như Terpinolene, Limonene và 3-Carene là những chất dập tắt gốc tự do hiệu quả. Chúng tặng electron cho các gốc tự do không ổn định, trung hòa chúng và ngăn chặn chuỗi phản ứng gây hại cho màng tế bào, protein và DNA. Về mặt chống viêm, chúng có thể ức chế con đường NF-κB, một con đường tín hiệu chính gây ra phản ứng viêm trong cơ thể.</p>
-                            <h4>Bằng chứng khoa học</h4>
-                            <ul>
-                                <li>Nhiều nghiên cứu đã đo lường và xác nhận khả năng chống oxy hóa cao của tinh dầu thông đỏ thông qua các thử nghiệm như ORAC, DPPH.</li>
-                                <li>Các nghiên cứu trên tế bào và động vật cho thấy việc sử dụng tinh dầu thông đỏ làm giảm các dấu hiệu viêm (inflammation markers) như CRP, IL-6.</li>
-                            </ul>
-                            <h4>Hạn chế & Tranh cãi</h4>
-                            <ul>
-                                <li>Dù khả năng chống oxy hóa/chống viêm là có thật, nhưng việc này có chuyển thành lợi ích sức khỏe rõ rệt trên người hay không vẫn là một câu hỏi mở. Cơ thể con người có hệ thống chống oxy hóa phức tạp của riêng mình.</li>
-                            </ul>
-                            <p class="mt-4"><strong>Kết luận:</strong> Đây là công dụng có nền tảng khoa học vững chắc nhất. Nó là cơ sở cho các lợi ích tiềm năng khác, nhưng không nên phóng đại thành khả năng 'chữa bách bệnh'.</p>
-                        `
-                    }
-                },
-                {
-                    id: 'claim4',
-                    title: 'Ngừa đột quỵ, ung thư',
-                    evidence: {
-                        rating: 'Suy diễn / Vô căn cứ',
-                        color: 'text-red-700',
-                        content: `
-                            <h4>Cơ chế hoạt động được đề xuất</h4>
-                            <p>Lập luận của các quảng cáo này thường là: (1) Viêm và stress oxy hóa là gốc rễ của nhiều bệnh, bao gồm ung thư và xơ vữa động mạch (nguyên nhân đột quỵ). (2) Tinh dầu thông đỏ chống viêm và chống oxy hóa. (3) Do đó, tinh dầu thông đỏ ngăn ngừa ung thư và đột quỵ. Đây là một lối suy diễn logic không hợp lệ (logical fallacy).</p>
-                            <h4>Bằng chứng khoa học</h4>
-                            <ul>
-                                <li>Hoàn toàn không có bằng chứng lâm sàng trực tiếp nào cho thấy việc uống tinh dầu thông đỏ làm giảm tỷ lệ mắc ung thư hoặc đột quỵ ở người.</li>
-                                <li>Các nghiên cứu tế bào ung thư trong ống nghiệm sử dụng nồng độ hoạt chất cực cao, không thể đạt được trong cơ thể người một cách an toàn qua đường uống.</li>
-                            </ul>
-                            <h4>Hạn chế & Tranh cãi</h4>
-                            <ul>
-                                <li>Đây là một tuyên bố y tế nghiêm trọng và việc quảng cáo như vậy là vô trách nhiệm, có thể khiến bệnh nhân từ bỏ các phương pháp điều trị đã được chứng minh.</li>
-                            </ul>
-                            <p class="mt-4"><strong>Kết luận:</strong> Các tuyên bố này là sai sự thật và nguy hiểm. Người tiêu dùng cần phải nhận thức rõ đây là chiêu trò marketing dựa trên sự suy diễn khoa học.</p>
-                        `
-                    }
-                }
-            ];
-
-            const claimsListEl = document.getElementById('claims-list');
-            const evidenceDisplayEl = document.getElementById('evidence-display');
-
-            claimsData.forEach((claim, index) => {
-                const button = document.createElement('button');
-                button.className = 'btn-claim py-3 px-2 text-center cursor-pointer'; // Reduced padding
-                button.textContent = claim.title;
-                button.dataset.claimId = claim.id;
-                claimsListEl.appendChild(button);
-
-                const evidenceDiv = document.createElement('div');
-                evidenceDiv.id = claim.id;
-                evidenceDiv.className = 'evidence-content';
-                evidenceDiv.innerHTML = `
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold text-primary !mt-0">${claim.title}</h3>
-                        <span class="text-sm flex-shrink-0 font-semibold px-3 py-1 rounded-full ${claim.evidence.color} bg-opacity-20 ${claim.evidence.color.replace('text-', 'bg-')}">${claim.evidence.rating}</span>
-                    </div>
-                    ${claim.evidence.content}
-                `;
-                evidenceDisplayEl.appendChild(evidenceDiv);
-
-                if (index === 0) {
-                    button.classList.add('active');
-                    evidenceDiv.classList.add('active');
-                }
-            });
-
-            claimsListEl.addEventListener('click', (e) => {
-                const targetButton = e.target.closest('button');
-                if (targetButton) {
-                    const claimId = targetButton.dataset.claimId;
-                    
-                    claimsListEl.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-                    targetButton.classList.add('active');
-                    
-                    evidenceDisplayEl.querySelectorAll('.evidence-content').forEach(content => content.classList.remove('active'));
-                    document.getElementById(claimId).classList.add('active');
-                }
-            });
-
-            const ctx = document.getElementById('ingredientsChart').getContext('2d');
-            const ingredientsChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Terpinolene', '3-Carene', 'Limonene', 'Các Terpenoid khác'],
-                    datasets: [{
-                        label: 'Thành phần hoạt chất',
-                        data: [35, 20, 10, 35],
-                        backgroundColor: [
-                            '#A4B494', 
-                            '#C3D1B7',
-                            '#E6EBE0',
-                            '#879878'
-                        ],
-                        borderColor: '#FFFFFF',
-                        borderWidth: 3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    family: "'Be Vietnam Pro', sans-serif",
-                                    size: 14
-                                }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed !== null) {
-                                        label += context.parsed + '% (ước tính)';
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 </html>
 
